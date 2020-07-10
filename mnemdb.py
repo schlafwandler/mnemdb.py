@@ -11,7 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description="Displays information about x86-64 assembler mnemonics.")
     parser.add_argument("mnemonic",help="mnemonic to display information about")
     parser.add_argument("-v",action="store_true",help="selects verbose text (use with less)")
-    parser.add_argument("-s","--substring",action="store_true",help="matching for substring of mnemonic")
+    parser.add_argument("-s","--substring",action="store_true",help="match for substring of mnemonic")
     
     args = parser.parse_args()
 
