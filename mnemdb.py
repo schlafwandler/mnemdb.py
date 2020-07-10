@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 import json
 import argparse
+import sys
 
 # mnemdb from the x64dbg project
 # https://github.com/x64dbg/x64dbg/blob/development/bin/mnemdb.json
-mnemdb_path = "mnemdb.json"
+mnemdb_path = sys.path[0] + "/" + "mnemdb.json"
 
 def main():
     parser = argparse.ArgumentParser(description="Displays information about x86-64 assembler mnemonics.")
