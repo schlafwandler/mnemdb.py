@@ -11,6 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description="Displays information about x86-64 assembler mnemonics.")
     parser.add_argument("mnemonic",help="mnemonic to display information about")
     parser.add_argument("-v",action="store_true",help="selects verbose text (use with less)")
+    parser.add_argument("-s","--substring",action="store_true",help="matching for substring of mnemonic")
     
     args = parser.parse_args()
 
@@ -22,13 +23,22 @@ def main():
     else:
         db_key = 'x86-64-brief'
 
-    entries = [e for e in db[db_key] if e["mnem"].lower()==args.mnemonic.lower()]
+    if args.substring:
+        entries = [e for e in db[db_key] if args.mnemonic.lower() in e["mnem"].lower()]
+    else:
+        entries = [e for e in db[db_key] if e["mnem"].lower()==args.mnemonic.lower()]
 
     if len(entries)==0:
         print("Unknown mnemonic '%s'"%(args.mnemonic))
         return -1
 
-    print(entries[0]['description'])
+    if args.v:
+        # print only description in verbose mode
+        print(entries[0]['description'])
+    else:
+        # print mnemonic and shot description in default mode
+        for e in entries:
+            print(e["mnem"]+"\t"+e["description"])
 
 if __name__=="__main__":
     main()
